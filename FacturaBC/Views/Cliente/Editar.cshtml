@@ -1,0 +1,39 @@
+﻿@model FacturaBC.Models.ViewModels.ClienteVM
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm("Editar", "Cliente", FormMethod.Post))
+{
+    <div class="row">
+        @Html.HiddenFor(d => d.codigo)
+        <div class="col-md-12">
+            <div>
+                @Html.LabelFor(d => d.nombres)
+                @Html.TextBoxFor(d => d.nombres, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.nombres, null, new { @class = "danger" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.apellidos)
+                @Html.TextBoxFor(d => d.apellidos, "", new { @class = "form-control" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.correo)
+                @Html.TextBoxFor(d => d.correo, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.nombres, null, new { @class = "danger" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.fechaNacimiento)
+                @Html.EditorFor(d => d.fechaNacimiento, "", new { @class = "form-control" })
+            </div>
+            <br />
+            <div style="text-align:left;">
+                <input type="submit" value="Guardar" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+
+}

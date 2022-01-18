@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Clientes";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row" style="text-align:right;padding:6px">
+    <a href="~/Cliente/Nuevo" class="btn btn-primary">Nuevo Cliente</a>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tr>
+                <th>
+                    Codigo
+                </th>
+                <th>
+                    Nombres
+                </th>
+                <th>
+                    Apellidos
+                </th>
+                <th>
+                    Correo
+                </th>
+            </tr>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td>@obj.codigo</td>
+                    <td>@obj.nombres</td>
+                    <td>@obj.apellidos</td>
+                    <td>@obj.correo</td>
+                    <td>
+                        <a class="btn btn-warning" href="~/Cliente/Editar/@obj.codigo">Editar</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" href="~/Cliente/Eliminar/@obj.codigo">Eliminar</a>
+                    </td>
+                </tr>
+
+            }
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PopularModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="codigo" />
+    </Key>
+    <Property Name="codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombres" Type="varchar" MaxLength="128" />
+    <Property Name="apellidos" Type="varchar" MaxLength="128" />
+    <Property Name="correo" Type="varchar" MaxLength="128" />
+    <Property Name="fechaNacimiento" Type="date" />
+  </EntityType>
+  <EntityType Name="FacturaDetalle">
+    <Key>
+      <PropertyRef Name="codigo" />
+    </Key>
+    <Property Name="codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codigoEncabezado" Type="int" Nullable="false" />
+    <Property Name="codigoProducto" Type="int" Nullable="false" />
+    <Property Name="cantidad" Type="int" />
+    <Property Name="total" Type="decimal" Precision="5" Scale="2" />
+  </EntityType>
+  <EntityType Name="FacturaEncabezado">
+    <Key>
+      <PropertyRef Name="codigo" />
+    </Key>
+    <Property Name="codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codigoCliente" Type="int" Nullable="false" />
+    <Property Name="fecha" Type="date" />
+  </EntityType>
+  <EntityType Name="Productos">
+    <Key>
+      <PropertyRef Name="codigo" />
+    </Key>
+    <Property Name="codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codigoProveedor" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="128" />
+    <Property Name="precioCosto" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="precioVenta" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="stock" Type="int" />
+  </EntityType>
+  <EntityType Name="Proveedores">
+    <Key>
+      <PropertyRef Name="codigo" />
+    </Key>
+    <Property Name="codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="128" />
+    <Property Name="correo" Type="varchar" MaxLength="128" />
+    <Property Name="telefono" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <Association Name="FK__FacturaDe__codig__2D27B809">
+    <End Role="FacturaEncabezado" Type="Self.FacturaEncabezado" Multiplicity="1" />
+    <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FacturaEncabezado">
+        <PropertyRef Name="codigo" />
+      </Principal>
+      <Dependent Role="FacturaDetalle">
+        <PropertyRef Name="codigoEncabezado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FacturaDe__codig__2E1BDC42">
+    <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+    <End Role="FacturaDetalle" Type="Self.FacturaDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="codigo" />
+      </Principal>
+      <Dependent Role="FacturaDetalle">
+        <PropertyRef Name="codigoProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FacturaEn__codig__286302EC">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+    <End Role="FacturaEncabezado" Type="Self.FacturaEncabezado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="codigo" />
+      </Principal>
+      <Dependent Role="FacturaEncabezado">
+        <PropertyRef Name="codigoCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Productos__codig__1DE57479">
+    <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="1" />
+    <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedores">
+        <PropertyRef Name="codigo" />
+      </Principal>
+      <Dependent Role="Productos">
+        <PropertyRef Name="codigoProveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PopularModelStoreContainer">
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FacturaDetalle" EntityType="Self.FacturaDetalle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FacturaEncabezado" EntityType="Self.FacturaEncabezado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__FacturaDe__codig__2D27B809" Association="Self.FK__FacturaDe__codig__2D27B809">
+      <End Role="FacturaEncabezado" EntitySet="FacturaEncabezado" />
+      <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FacturaDe__codig__2E1BDC42" Association="Self.FK__FacturaDe__codig__2E1BDC42">
+      <End Role="Productos" EntitySet="Productos" />
+      <End Role="FacturaDetalle" EntitySet="FacturaDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FacturaEn__codig__286302EC" Association="Self.FK__FacturaEn__codig__286302EC">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="FacturaEncabezado" EntitySet="FacturaEncabezado" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Productos__codig__1DE57479" Association="Self.FK__Productos__codig__1DE57479">
+      <End Role="Proveedores" EntitySet="Proveedores" />
+      <End Role="Productos" EntitySet="Productos" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
